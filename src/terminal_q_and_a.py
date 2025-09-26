@@ -4,6 +4,7 @@ from langchain_openai import OpenAIEmbeddings
 from langchain_chroma import Chroma
 from typing import List, Tuple
 from utils.load_config import LoadConfig
+from utils.data_cleaning import DataCleaning
 
 APPCFG = LoadConfig()
 
@@ -29,6 +30,10 @@ while True:
     retrived_docs_page_content: List[Tuple] = [
         str(x.page_content)+"\n\n" for x in docs
     ]
+    
+    clean_data = DataCleaning.clean_reference(docs)
+    print(clean_data)
+        
     retrived_docs_str = "#Retrived content: \n\n" + str(retrived_docs_page_content)
     prompt = retrived_docs_str + "\n\n" + question
     
